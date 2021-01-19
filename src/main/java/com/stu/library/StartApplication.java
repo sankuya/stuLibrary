@@ -1,7 +1,6 @@
 package com.stu.library;
 
 import com.stu.library.ui.LoginUi;
-import com.stu.library.ui.UserUi;
 
 public class StartApplication {
     public static LoginUi login;
@@ -16,7 +15,6 @@ public class StartApplication {
     }
 
     public static void run() {
-//        new LoginUi();
-        new UserUi(1, UserUi.ALL_BOOK_CARD);
+        new LoginUi();
     }
 }
