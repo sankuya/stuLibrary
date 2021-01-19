@@ -3,8 +3,6 @@ package com.stu.library;
 import com.stu.library.ui.LoginUi;
 
 public class StartApplication {
-    public static LoginUi login;
-
     /**
      * 整个程序开始的地方main方法
      *
