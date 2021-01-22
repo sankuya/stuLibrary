@@ -9,9 +9,9 @@ import java.sql.*;
  */
 public class JdbcUtil {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/stu_library";
+    private static final String URL = "jdbc:mysql://localhost:3306/stu_library?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8";
     private static final String USER = "root";
-    private static final String PASSWORD = "123456";
+    private static final String PASSWORD = "admin";
 
     static {
         try {
