@@ -19,25 +19,24 @@ public class LoginService {
 
 
     /**
-     * 用户登录接口
-     *
-     * @param userId           用户名
-     * @param password         用户密码
-     * @param verificationCode 验证码
+     *用户登录
+     * @param userName
+     * @param password
+     * @param verificationCode
      * @return
      */
-    public User userLogin(String userId, String password, String verificationCode) {
+    public User userLogin(String userName, String password, String verificationCode) {
         try {
             if (password == null || password.equals("")) return null;
             if (verificationCode == null || verificationCode.equals("")) return null;
-            int id = Integer.parseInt(userId);
+//            int id = Integer.parseInt(userName);
 
             //校验验证码
-            String serverVerificationCode = verificationMap.get(userId);
+            String serverVerificationCode = verificationMap.get(userName);
             if (!verificationCode.equals(serverVerificationCode)) return null;
 
             //校验密码
-            User user = userDao.queryUser(id);
+            User user = userDao.queryUser(userName);
             if (user == null || !user.getPassword().equals(password)) return null;
 
             return user;
