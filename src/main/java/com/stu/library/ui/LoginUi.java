@@ -2,6 +2,7 @@ package com.stu.library.ui;
 
 import com.stu.library.domain.User;
 import com.stu.library.service.LoginService;
+import com.stu.library.service.RegisterService;
 import com.stu.library.util.ShowMessageUtil;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 
 public class LoginUi {
     private LoginService loginService;
+    private RegisterService registerService;
     private JFrame jf = new JFrame("图书馆系统");
 
     //各种输入框
@@ -27,7 +29,7 @@ public class LoginUi {
     public LoginUi() {
         //获取service对象单例实例
         loginService = LoginService.getInstance();
-
+        registerService=RegisterService.getInstance();
         //设置窗口
         Dimension sc = Toolkit.getDefaultToolkit().getScreenSize(); // 获得屏幕尺寸
         jf.setSize(900, 500);
@@ -157,10 +159,10 @@ public class LoginUi {
         @Override
         public void actionPerformed(ActionEvent e) {
             // 获得输入的 账号、密码、验证码
-            String id = nameInput.getText();
+            String userName = nameInput.getText();
             String password = new String(passwordInput.getPassword());
             String code = verificationInput.getText();
-            if (id.equals("") || password.equals("")) {
+            if (userName.equals("") || password.equals("")) {
                 ShowMessageUtil.winMessage("账号、密码不能为空！");
                 return;
             }
@@ -178,7 +180,7 @@ public class LoginUi {
             }
 
             //调用登录接口
-            User user = loginService.userLogin(id, password, code);
+            User user = loginService.userLogin(userName, password, code);
             if (user == null) {
                 ShowMessageUtil.winMessage("验证失败！");
             } else {
@@ -196,7 +198,34 @@ public class LoginUi {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ShowMessageUtil.winMessage("注册功能尚未实现！");
+            String userName = nameInput.getText();
+            String password = new String(passwordInput.getPassword());
+            String code = verificationInput.getText();
+            if (userName.equals("") || password.equals("")) {
+                ShowMessageUtil.winMessage("账号、密码不能为空！");
+                return;
+            }
+
+            if ("".equals(code)) {
+                ShowMessageUtil.winMessage("请输入或点击获取验证码！");
+                return;
+            }
+
+
+            //管理员功能未实现
+            if (!loginUserTypeButton.isSelected()) {
+                ShowMessageUtil.winMessage("管理员功能尚未实现！");
+                return;
+            }
+
+            //调用注册接口
+            User user = registerService.userRegister(userName, password, code);
+            if (user == null) {
+                ShowMessageUtil.winMessage("验证失败！");
+            } else {
+                new UserUi(user.getId(), UserUi.ALL_BOOK_CARD);
+                jf.dispose();
+            }
         }
     }
 
